@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATHS PROJECT | MATCHING ALGORITHM FOR ASSIGNING THE WORK</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    
+    <!-- CSS File -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Opening Animation -->
+    <div id="introOverlay" aria-hidden="true">
+        <canvas id="introCanvas"></canvas>
+        <div id="introText">
+            <h1>Matching Algorithm</h1>
+            <p class="subtitle">for Assigning Work</p>
+        </div>
+        <button id="skipIntro" aria-label="Skip intro">Skip</button>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <header>
+            <nav>
+                <div class="logo">MATHS PROJECT</div>
+                <ul>
+                    <li><a href="#about">About Project</a></li>
+                    <li><a href="#services">Know More</a></li>
+                    <li><a href="#visualizer">Algorithm Visualizer</a></li>
+                    <li><a href="#algorithm">How It Works</a></li>
+                    <li><a href="#conclusion">Conclusion</a></li>
+                    <li><a href="#about-us">About Us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Hero Section -->
+            <section id="hero">
+                <div class="hero-content">
+                    <h1>MATCHING ALGORITHM FOR ASSIGNING WORK</h1>
+                    <p style="font-size: 1.4rem; margin-bottom: 3rem; opacity: 0.9;">
+                        Advanced Hungarian Algorithm for Optimal Assignment Problems
+                    </p>
+                    
+                    <div class="image-container">
+                        <h3 style="color: #e53e3e; font-size: 2rem;">Assignment Problem Solution</h3>
+                        <div class="content-card">
+                            <p style="font-size: 1.2rem;">The Assignment Problem involves finding the optimal one-to-one matching between workers and tasks to minimize total cost using mathematical optimization techniques.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="algorithm-slideshow" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; padding: 5rem 10%;">
+                <div class="container">
+                    <header>
+                        <h1>Hungarian Algorithm</h1>
+                        <p class="subtitle">Step-by-Step Explanation</p>
+                    </header>
+                    
+                    <div class="slideshow-container">
+                        <!-- Slide 1 -->
+                        <div class="slide active">
+                            <div class="slide-content">
+                                <h2 class="slide-title">Hungarian Algorithm</h2>
+                                <h3 class="slide-title">FULL EXPLANATION</h3>
+                                <div class="math-formula">
+                                    \[ V = \frac{1}{2} b h l \]
+                                </div>
+                                <div class="math-formula">
+                                    \[ a + \frac{y}{h} = 1 \]
+                                </div>
+                                <div class="math-formula">
+                                    \[ ax^2 + bx + c = 0 \]
+                                </div>
+                                <div class="math-formula">
+                                    \[ V = \frac{4}{3} \pi r^3 \]
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 2 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">LET'S LEARN IT THROUGH EXAMPLE</h2>
+                                <p class="slide-text">Let's Take Example of Workers and Jobs.</p>
+                                <p class="slide-text">Which Jobs are Allocated to Which Workers...</p>
+                                <div class="math-formula">
+                                    \[ y = mx + b \]
+                                </div>
+                                <div class="math-formula">
+                                    \[ \sqrt{1 - \frac{4}{3} \pi r^3} \]
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 3 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">LET'S START</h2>
+                                <table>
+                                    <tr>
+                                        <th>Ex.</th>
+                                        <th>J1</th>
+                                        <th>J2</th>
+                                        <th>J3</th>
+                                    </tr>
+                                    <tr>
+                                        <td>W1</td>
+                                        <td>9</td>
+                                        <td>2</td>
+                                        <td>7</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W2</td>
+                                        <td>6</td>
+                                        <td>4</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W3</td>
+                                        <td>5</td>
+                                        <td>8</td>
+                                        <td>1</td>
+                                    </tr>
+                                </table>
+                                <p class="slide-text">This given values are the cost (or distance, time, effort, etc.)</p>
+                                <div class="math-formula">
+                                    \[ V = \frac{1}{2} bhL \]
+                                </div>
+                                <div class="math-formula">
+                                    \[ a - h = 1 \]
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 4 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">STEP-1</h2>
+                                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                                    <div>
+                                        <h3 class="slide-title">Original Matrix</h3>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>J1</th>
+                                                <th>J2</th>
+                                                <th>J3</th>
+                                            </tr>
+                                            <tr>
+                                                <td>W1</td>
+                                                <td>9</td>
+                                                <td>2</td>
+                                                <td>7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>W2</td>
+                                                <td>6</td>
+                                                <td>4</td>
+                                                <td>3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>W3</td>
+                                                <td>5</td>
+                                                <td>8</td>
+                                                <td>1</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h3 class="slide-title">After Row Reduction</h3>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>J1</th>
+                                                <th>J2</th>
+                                                <th>J3</th>
+                                            </tr>
+                                            <tr>
+                                                <td>W1</td>
+                                                <td>7</td>
+                                                <td>0</td>
+                                                <td>5</td>
+                                            </tr>
+                                            <tr>
+                                                <td>W2</td>
+                                                <td>3</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>W3</td>
+                                                <td>4</td>
+                                                <td>7</td>
+                                                <td>0</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <p class="slide-text">SUBTRACT WHOLE ROW WITH MINIMUM VALUE IN THE ROW</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 5 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">STEP-2</h2>
+                                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                                    <div>
+                                        <h3 class="slide-title">After Row Reduction</h3>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>J1</th>
+                                                <th>J2</th>
+                                                <th>J3</th>
+                                            </tr>
+                                            <tr>
+                                                <td>W1</td>
+                                                <td>7</td>
+                                                <td>0</td>
+                                                <td>5</td>
+                                            </tr>
+                                            <tr>
+                                                <td>W2</td>
+                                                <td>3</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>W3</td>
+                                                <td>4</td>
+                                                <td>7</td>
+                                                <td>0</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h3 class="slide-title">After Column Reduction</h3>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>J1</th>
+                                                <th>J2</th>
+                                                <th>J3</th>
+                                            </tr>
+                                            <tr>
+                                                <td>W1</td>
+                                                <td>4</td>
+                                                <td>0</td>
+                                                <td>5</td>
+                                            </tr>
+                                            <tr>
+                                                <td>W2</td>
+                                                <td>0</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>W3</td>
+                                                <td>1</td>
+                                                <td>7</td>
+                                                <td>0</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <p class="slide-text">DO THE SAME WITH COLUMN</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 6 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">STEP-3</h2>
+                                <h3 class="slide-title">FIND MINIMUM LINES THAT COVER ALL ZEROS</h3>
+                                <table>
+                                    <tr>
+                                        <th></th>
+                                        <th>J1</th>
+                                        <th>J2</th>
+                                        <th>J3</th>
+                                    </tr>
+                                    <tr>
+                                        <td>W1</td>
+                                        <td>4</td>
+                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W2</td>
+                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                                        <td>1</td>
+                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W3</td>
+                                        <td>1</td>
+                                        <td>7</td>
+                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                                    </tr>
+                                </table>
+                                <p class="slide-text">ROW-1, ROW-2, COLUMN-3</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 7 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">STEP-4</h2>
+                                <h3 class="slide-title">FIND SMALLEST UNCOVERED ELEMENT</h3>
+                                <table>
+                                    <tr>
+                                        <th></th>
+                                        <th>J1</th>
+                                        <th>J2</th>
+                                        <th>J3</th>
+                                    </tr>
+                                    <tr>
+                                        <td>W1</td>
+                                        <td style="background: rgba(229, 62, 62, 0.3);">4</td>
+                                        <td>0</td>
+                                        <td style="background: rgba(229, 62, 62, 0.3);">5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W2</td>
+                                        <td>0</td>
+                                        <td style="background: rgba(229, 62, 62, 0.3);">1</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W3</td>
+                                        <td style="background: rgba(229, 62, 62, 0.3);">1</td>
+                                        <td style="background: rgba(229, 62, 62, 0.3);">7</td>
+                                        <td>0</td>
+                                    </tr>
+                                </table>
+                                <p class="slide-text">Uncovered Elements (highlighted in red)</p>
+                                <p class="slide-text">SMALLEST ELEMENT = 1</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 8 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">STEP-5</h2>
+                                <h3 class="slide-title">SUBTRACT SMALLEST ELEMENT FROM ALL UNCOVERED ELEMENT</h3>
+                                <table>
+                                    <tr>
+                                        <th></th>
+                                        <th>J1</th>
+                                        <th>J2</th>
+                                        <th>J3</th>
+                                    </tr>
+                                    <tr>
+                                        <td>W1</td>
+                                        <td>3</td>
+                                        <td>0</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W2</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W3</td>
+                                        <td>0</td>
+                                        <td>6</td>
+                                        <td>0</td>
+                                    </tr>
+                                </table>
+                                <p class="slide-text">SUBTRACT = 1</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 9 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">STEP-6</h2>
+                                <h3 class="slide-title">ADD SMALLEST ELEMENT TO ALL ELEMENTS AT THE INTERSECTION OF LINES</h3>
+                                <table>
+                                    <tr>
+                                        <th></th>
+                                        <th>J1</th>
+                                        <th>J2</th>
+                                        <th>J3</th>
+                                    </tr>
+                                    <tr>
+                                        <td>W1</td>
+                                        <td>4</td>
+                                        <td>0</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W2</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W3</td>
+                                        <td>0</td>
+                                        <td>6</td>
+                                        <td>0</td>
+                                    </tr>
+                                </table>
+                                <p class="slide-text">Intersection of lines | Adding 1</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 10 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">STEP-7</h2>
+                                <h3 class="slide-title">SELECT ZERO FROM EACH ROW THUS THE COLUMN DOESN'T INTERSECT</h3>
+                                <table>
+                                    <tr>
+                                        <th></th>
+                                        <th>J1</th>
+                                        <th>J2</th>
+                                        <th>J3</th>
+                                    </tr>
+                                    <tr>
+                                        <td>W1</td>
+                                        <td>4</td>
+                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W2</td>
+                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W3</td>
+                                        <td>0</td>
+                                        <td>6</td>
+                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                                    </tr>
+                                </table>
+                                <p class="slide-text">If you select any zero from a row then you are not allowed to select zero for other row from same column</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 11 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">RESULT</h2>
+                                <h3 class="slide-title">FINAL RESULT</h3>
+                                <table>
+                                    <tr>
+                                        <th></th>
+                                        <th>J1</th>
+                                        <th>J2</th>
+                                        <th>J3</th>
+                                    </tr>
+                                    <tr>
+                                        <td>W1</td>
+                                        <td>4</td>
+                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W2</td>
+                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W3</td>
+                                        <td>0</td>
+                                        <td>6</td>
+                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                                    </tr>
+                                </table>
+                                <ul style="margin: 20px 0; padding-left: 20px;">
+                                    <li class="slide-text">J2 Assigned To W1</li>
+                                    <li class="slide-text">J1 Assigned To W2</li>
+                                    <li class="slide-text">J3 Assigned To W3</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 12 -->
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2 class="slide-title">CONCLUSION</h2>
+                                <ul style="margin: 20px 0; padding-left: 20px;">
+                                    <li class="slide-text">J2 Assigned To W1</li>
+                                    <li class="slide-text">J1 Assigned To W2</li>
+                                    <li class="slide-text">J3 Assigned To W3</li>
+                                </ul>
+                                <p class="slide-text">Total Cost = 2 + 6 + 1 = 9</p>
+                                <p class="slide-text">This is the minimum cost possible for this assignment problem.</p>
+                                <div class="math-formula">
+                                    \[ \text{Minimum Cost} = 9 \]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide Controls -->
+                    <div class="controls">
+                        <button id="prevBtn">Previous</button>
+                        <button id="nextBtn">Next</button>
+                    </div>
+                    
+                    <!-- Slide Indicators -->
+                    <div class="slide-indicators">
+                        <div class="indicator active" data-slide="0">1</div>
+                        <div class="indicator" data-slide="1">2</div>
+                        <div class="indicator" data-slide="2">3</div>
+                        <div class="indicator" data-slide="3">4</div>
+                        <div class="indicator" data-slide="4">5</div>
+                        <div class="indicator" data-slide="5">6</div>
+                        <div class="indicator" data-slide="6">7</div>
+                        <div class="indicator" data-slide="7">8</div>
+                        <div class="indicator" data-slide="8">9</div>
+                        <div class="indicator" data-slide="9">10</div>
+                        <div class="indicator" data-slide="10">11</div>
+                        <div class="indicator" data-slide="11">12</div>
+                    </div>
+                    
+                    <div class="slide-number">
+                        Slide <span id="currentSlide">1</span> of <span id="totalSlides">12</span>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- About Section -->
+            <section id="about">
+                <div class="container">
+                    <h2>About the Project</h2>
+                    <div class="about-container">
+                        <div style="flex: 1;">
+                            <h3 style="color: #e53e3e; font-size: 1.8rem; margin-bottom: 1rem;">Hungarian Algorithm</h3>
+                            <p style="font-size: 1.1rem; line-height: 1.7;">
+                                The Hungarian Algorithm is a combinatorial optimization algorithm that solves the assignment problem in polynomial time. It was developed and published by Harold Kuhn in 1955, who named it in honor of Hungarian mathematicians Dénes Kőnig and Jenő Egerváry.
+                            </p>
+                            <p style="font-size: 1.1rem; line-height: 1.7; margin-top: 1rem;">
+                                This algorithm finds a minimum-cost matching in a bipartite graph, where the goal is to assign tasks to workers such that each task is assigned to exactly one worker, each worker is assigned exactly one task, and the total cost of the assignments is minimized.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services">
+                <div class="container">
+                    <h2>Applications of the Hungarian Algorithm</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <h3>Resource Allocation</h3>
+                            <p>Efficiently assign tasks to workers, machines to jobs, or students to projects while minimizing costs or maximizing efficiency.</p>
+                        </div>
+                        <div class="service-card">
+                            <h3>Transportation Problems</h3>
+                            <p>Optimize vehicle routing and assignment in logistics and supply chain management.</p>
+                        </div>
+                        <div class="service-card">
+                            <h3>Scheduling</h3>
+                            <p>Create optimal schedules for employees, classes, or production lines while considering constraints.</p>
+                        </div>
+                        <div class="service-card">
+                            <h3>Network Design</h3>
+                            <p>Design efficient communication networks by optimally connecting nodes.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visualizer Section -->
+            <section id="visualizer">
+                <div class="container">
+                    <h2>Algorithm Visualizer</h2>
+                    <div class="vis-container">
+                        <canvas id="algo-canvas"></canvas>
+                        <div class="visualizer-controls">
+                            <button class="visualizer-btn btn-primary" id="start-viz">Start Visualization</button>
+                            <button class="visualizer-btn btn-secondary" id="reset-viz">Reset</button>
+                            <button class="visualizer-btn btn-secondary" id="step-viz">Step Forward</button>
+                        </div>
+                        <div id="viz-message"></div>
+                    </div>
+                </div>
+            </section>
+<!-- Visualizer 2 Section -->
+<section id="visualizer2">
+    <div class="container">
+        <h2>Matrix Algorithm Visualizer</h2>
+        <div class="vis-container">
+            <canvas id="matrix-canvas"></canvas>
+            <div class="visualizer-controls">
+                <button class="visualizer-btn btn-primary" id="start-viz2">Start Visualization</button>
+                <button class="visualizer-btn btn-secondary" id="reset-viz2">Reset</button>
+                <button class="visualizer-btn btn-secondary" id="step-viz2">Step Forward</button>
+            </div>
+            <div id="viz-message2"></div>
+        </div>
+    </div>
+</section>
+
+            <!-- Algorithm Section -->
+            <section id="algorithm">
+                <div class="container">
+                    <h2>How the Algorithm Works</h2>
+                    <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem;">
+                        The Hungarian Algorithm follows a systematic approach to solve assignment problems:
+                    </p>
+                    <ol style="font-size: 1.1rem; line-height: 1.7; padding-left: 1.5rem;">
+                        <li>Reduce the cost matrix by subtracting row and column minimums</li>
+                        <li>Find the minimum number of lines to cover all zeros</li>
+                        <li>If the number of lines equals the matrix size, an optimal assignment is found</li>
+                        <li>Otherwise, adjust the matrix and repeat the process</li>
+                    </ol>
+                    <div class="iframe-container">
+                        <iframe src="https://algorithms.discrete.ma.tum.de/graph-algorithms/matchings-hungarian-method/index_en.html" title="Hungarian Algorithm Animation"></iframe>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section id="conclusion">
+                <div class="container">
+                    <h2>Conclusion</h2>
+                    <h3>Key Takeaways</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.7;">
+                        The Hungarian Algorithm provides an efficient solution to assignment problems with a time complexity of O(n³), making it suitable for practical applications with reasonable problem sizes.
+                    </p>
+                    <h3>Advantages</h3>
+                    <ul style="font-size: 1.1rem; line-height: 1.7; padding-left: 1.5rem;">
+                        <li>Guarantees optimal solution</li>
+                        <li>Efficient for medium-sized problems</li>
+                        <li>Easy to implement and understand</li>
+                        <li>Wide range of applications</li>
+                    </ul>
+                    <h3>Limitations</h3>
+                    <ul style="font-size: 1.1rem; line-height: 1.7; padding-left: 1.5rem;">
+                        <li>Only applicable to balanced assignment problems</li>
+                        <li>Assumes linear cost functions</li>
+                        <li>May be inefficient for very large problems</li>
+                    </ul>
+                </div>
+            </section>
+
+<!-- About Us Section -->
+<section id="about-us">
+    <div class="container">
+        <h2>About Our Team</h2>
+        <p class="team-description">This project is developed by our dedicated team of computer science students as part of our academic curriculum under the guidance of our esteemed faculty mentors.</p>
+        
+        <!-- Faculty Mentors Section -->
+        <div class="faculty-mentors">
+            <h3>Faculty Mentors</h3>
+            <div class="faculty-grid">
+                <div class="faculty-member">
+                    <div class="faculty-avatar">👩‍🏫</div>
+                    <h4>Dr. Bina Patel</h4>
+                    <p class="faculty-role">Faculty Mentor</p>
+                    <div class="faculty-contact">
+                        <a href="https://vidwan.inflibnet.ac.in/profile/241670" target="_blank" class="profile-link">
+                            📘 View Profile
+                        </a>
+                        <a href="mailto:binapatel.maths@charusat.ac.in" class="mail-link">
+                            📧 binapatel.maths@charusat.ac.in
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="faculty-member">
+                    <div class="faculty-avatar">👨‍🏫</div>
+                    <h4>Dr. Jignesh Chauhan</h4>
+                    <p class="faculty-role">Assessment Mentor</p>
+                    <div class="faculty-contact">
+                        <a href="https://vidwan.inflibnet.ac.in/profile/213416" target="_blank" class="profile-link">
+                            📘 View Profile
+                        </a>
+                        <a href="mailto:jigneshchauhan.maths@charusat.ac.in" class="mail-link">
+                            📧 jigneshchauhan.maths@charusat.ac.in
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Team Section -->
+        <div class="team-section">
+            <h3>Student Team</h3>
+            <div class="team-container">
+                <!-- Row 1 -->
+                <div class="team-row">
+                    <div class="team-card">
+                        <div class="card-header">
+                            <div class="avatar">👨‍💻</div>
+                            <h4>Mihir Rathod</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="enrollment-id">24CS087-CSE</p>
+                            <p class="department">Computer Science & Engineering</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="card-header">
+                            <div class="avatar">👨‍💻</div>
+                            <h4>Param Shah</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="enrollment-id">24CS093-CSE</p>
+                            <p class="department">Computer Science & Engineering</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="card-header">
+                            <div class="avatar">👨‍💻</div>
+                            <h4>Himanshu Varotariya</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="enrollment-id">24CS106-CSE</p>
+                            <p class="department">Computer Science & Engineering</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="card-header">
+                            <div class="avatar">👨‍💻</div>
+                            <h4>Prince Patel</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="enrollment-id">24CS073-CSE</p>
+                            <p class="department">Computer Science & Engineering</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="card-header">
+                            <div class="avatar">👨‍💻</div>
+                            <h4>Rudra Patel</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="enrollment-id">24CS074-CSE</p>
+                            <p class="department">Computer Science & Engineering</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="team-row">
+                    <div class="team-card">
+                        <div class="card-header">
+                            <div class="avatar">👨‍💻</div>
+                            <h4>Varshil Patel</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="enrollment-id">24CSO080-CSE</p>
+                            <p class="department">Computer Science & Engineering</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="card-header">
+                            <div class="avatar">👨‍💻</div>
+                            <h4>Srujal Patel</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="enrollment-id">24CS076-CSE</p>
+                            <p class="department">Computer Science & Engineering</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="card-header">
+                            <div class="avatar">👨‍💻</div>
+                            <h4>Ladva Jay</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="enrollment-id">24CS045-CSE</p>
+                            <p class="department">Computer Science & Engineering</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="card-header">
+                            <div class="avatar">👨‍💻</div>
+                            <h4>Kashyap Nasit</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="enrollment-id">24CS109-CSE</p>
+                            <p class="department">Computer Science & Engineering</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="card-header">
+                            <div class="avatar">👨‍💻</div>
+                            <h4>Max Patel</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="enrollment-id">241T070-IT</p>
+                            <p class="department">Information Technology</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-purpose">
+            <h3>Project Purpose</h3>
+            <p>This Mathematics Project focuses on implementing and visualizing the Hungarian Algorithm for optimal assignment problems. The project demonstrates the practical application of combinatorial optimization algorithms in solving real-world resource allocation problems.</p>
+        </div>
+    </div>
+</section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>MATHS PROJECT | MATCHING ALGORITHM FOR ASSIGNING THE WORK</p>
+                <p>© 2025 All Rights Reserved</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript File -->
+    <script src="script.js"></script>
+</body>
+</html>
