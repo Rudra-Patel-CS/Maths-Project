@@ -33,20 +33,29 @@
     <!-- Main Content -->
     <div id="main-content">
         <header>
-            <nav>
-                <div class="logo">MATHS PROJECT</div>
-                <ul>
-                    <li><a href="#about">About Project</a></li>
-                    <li><a href="#services">Know More</a></li>
-                    <li><a href="#visualizer">Algorithm Visualizer</a></li>
-                    <li><a href="#algorithm">How It Works</a></li>
-                    <li><a href="#conclusion">Conclusion</a></li>
-                    <li><a href="#about-us">About Us</a></li>
-                </ul>
-            </nav>
+            <!-- Feedback Button - Place this in your navigation -->
+<nav>
+    <div class="logo">MATHS PROJECT</div>
+    <ul>
+        <li><a href="#Home" onclick="return false;">Home</a></li>  <!-- Home link that does nothing -->
+        <li><a href="#about">About Project</a></li>
+        <li><a href="#services">Applications</a></li>
+        <li><a href="#visualizer">Algorithm Visualizer</a></li>
+        <li><a href="#algorithm">How It Works</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+        <li><a href="#about-us">About Us</a></li>
+        <li><a href="YOUR_FEEDBACK_LINK" target="_blank" class="feedback-btn">Feedback</a></li>
+    </ul>
+</nav>
+<!-- OR Place this as a floating button -->
+<div class="floating-feedback">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfjbhyuxkfjGYL22YCZCGLvdSkK6_VITP_m5Ji3JmuA3jBwDA/viewform" target="_blank" class="floating-btn">
+        💬 Feedback
+    </a>
+</div>
         </header>
 
-        <main>
+        <main id="Home">
             <!-- Hero Section -->
             <section id="hero">
                 <div class="hero-content">
@@ -545,48 +554,149 @@
             </section>
 
 
-            <!-- About Section -->
-            <section id="about">
-                <div class="container">
-                    <h2>About the Project</h2>
-                    <div class="about-container">
-                        <div style="flex: 1;">
-                            <h3 style="color: #e53e3e; font-size: 1.8rem; margin-bottom: 1rem;">Hungarian Algorithm</h3>
-                            <p style="font-size: 1.1rem; line-height: 1.7;">
-                                The Hungarian Algorithm is a combinatorial optimization algorithm that solves the assignment problem in polynomial time. It was developed and published by Harold Kuhn in 1955, who named it in honor of Hungarian mathematicians Dénes Kőnig and Jenő Egerváry.
-                            </p>
-                            <p style="font-size: 1.1rem; line-height: 1.7; margin-top: 1rem;">
-                                This algorithm finds a minimum-cost matching in a bipartite graph, where the goal is to assign tasks to workers such that each task is assigned to exactly one worker, each worker is assigned exactly one task, and the total cost of the assignments is minimized.
-                            </p>
-                        </div>
-                    </div>
+<!-- About Project Section -->
+<section id="about">
+    <div class="container">
+        <h2>About The Project</h2>
+        <div class="project-overview">
+            <div class="project-content">
+                <div class="project-intro">
+                    <h3>Optimal Assignment Problem Solver</h3>
+                    <p>This project implements and visualizes matching algorithms to solve the classic Assignment Problem - efficiently allocating agents to tasks while minimizing total cost using advanced combinatorial optimization techniques.</p>
                 </div>
-            </section>
 
-            <!-- Services Section -->
-            <section id="services">
-                <div class="container">
-                    <h2>Applications of the Hungarian Algorithm</h2>
-                    <div class="services-grid">
-                        <div class="service-card">
-                            <h3>Resource Allocation</h3>
-                            <p>Efficiently assign tasks to workers, machines to jobs, or students to projects while minimizing costs or maximizing efficiency.</p>
+                <div class="problem-statement card">
+                    <h4>📋 Problem Statement</h4>
+                    <p>Given <strong>n agents</strong> (workers, machines) and <strong>n tasks</strong> (jobs, routes) with a cost matrix <strong>C[i][j]</strong> representing the cost of assigning agent i to task j, find the optimal one-to-one assignment that minimizes the total cost.</p>
+                    <div class="math-formula">
+                        \[ \text{Minimize } \sum_{i=1}^{n} C[i][\text{assigned}(i)] \]
+                    </div>
+                </div>
+
+                <div class="algorithm-features">
+                    <h4>🚀 Why Hungarian Algorithm?</h4>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h5>Efficiency</h5>
+                            <p>O(n³) time complexity vs brute force O(n!) - handles large problems efficiently</p>
                         </div>
-                        <div class="service-card">
-                            <h3>Transportation Problems</h3>
-                            <p>Optimize vehicle routing and assignment in logistics and supply chain management.</p>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h5>Optimal Solution</h5>
+                            <p>Guaranteed minimum cost assignment for weighted bipartite matching</p>
                         </div>
-                        <div class="service-card">
-                            <h3>Scheduling</h3>
-                            <p>Create optimal schedules for employees, classes, or production lines while considering constraints.</p>
-                        </div>
-                        <div class="service-card">
-                            <h3>Network Design</h3>
-                            <p>Design efficient communication networks by optimally connecting nodes.</p>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔧</div>
+                            <h5>Practical Applications</h5>
+                            <p>Workforce scheduling, transport logistics, resource allocation</p>
                         </div>
                     </div>
                 </div>
-            </section>
+
+                <div class="algorithm-steps card">
+                    <h4>🔍 Hungarian Algorithm Steps</h4>
+                    <ol class="steps-list">
+                        <li>
+                            <strong>Row Reduction:</strong> Subtract row minimum from each row
+                            <div class="math-formula">\[ \text{For each row } i: C[i][j] = C[i][j] - \min(C[i]) \]</div>
+                        </li>
+                        <li>
+                            <strong>Column Reduction:</strong> Subtract column minimum from each column
+                            <div class="math-formula">\[ \text{For each column } j: C[i][j] = C[i][j] - \min(C[:,j]) \]</div>
+                        </li>
+                        <li>
+                            <strong>Cover Zeros:</strong> Find minimum lines covering all zeros
+                        </li>
+                        <li>
+                            <strong>Optimal Check:</strong> If lines = n, optimal assignment found
+                        </li>
+                        <li>
+                            <strong>Matrix Adjustment:</strong> Adjust matrix and repeat if needed
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="complexity-section">
+                    <h4>📊 Algorithm Complexity</h4>
+                    <div class="complexity-cards">
+                        <div class="complexity-card">
+                            <h5>Time Complexity</h5>
+                            <div class="complexity-value">O(n³)</div>
+                            <p>Polynomial time efficiency</p>
+                        </div>
+                        <div class="complexity-card">
+                            <h5>Space Complexity</h5>
+                            <div class="complexity-value">O(n²)</div>
+                            <p>Matrix storage requirement</p>
+                        </div>
+                        <div class="complexity-card">
+                            <h5>Brute Force</h5>
+                            <div class="complexity-value">O(n!)</div>
+                            <p>Intractable for large n</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="applications-section card">
+                    <h4>🌍 Real-World Applications</h4>
+                    <div class="applications-grid">
+                        <div class="application-item">
+                            <span class="app-icon">👥</span>
+                            <span>Workforce Scheduling</span>
+                        </div>
+                        <div class="application-item">
+                            <span class="app-icon">🚚</span>
+                            <span>Transport Logistics</span>
+                        </div>
+                        <div class="application-item">
+                            <span class="app-icon">🏥</span>
+                            <span>Healthcare Allocation</span>
+                        </div>
+                        <div class="application-item">
+                            <span class="app-icon">☁️</span>
+                            <span>Cloud Computing</span>
+                        </div>
+                        <div class="application-item">
+                            <span class="app-icon">🎓</span>
+                            <span>Education Assignments</span>
+                        </div>
+                        <div class="application-item">
+                            <span class="app-icon">🏭</span>
+                            <span>Production Planning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="implementation-details">
+                    <h4>💻 Implementation Details</h4>
+                    <div class="implementation-grid">
+                        <div class="tech-stack">
+                            <h5>Technology Stack</h5>
+                            <ul>
+                                <li>Frontend: HTML5, CSS3, JavaScript</li>
+                                <li>Visualization: Canvas API, Three.js</li>
+                                <li>Mathematics: MathJax, Custom Algorithms</li>
+                                <li>Backend: Python (SciPy optimization)</li>
+                            </ul>
+                        </div>
+                        <div class="features-list">
+                            <h5>Key Features</h5>
+                            <ul>
+                                <li>Interactive Algorithm Visualizer</li>
+                                <li>Step-by-Step Explanation</li>
+                                <li>Real-time Cost Matrix Processing</li>
+                                <li>Multiple Problem Examples</li>
+                                <li>Responsive Web Interface</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
             <!-- Visualizer Section -->
             <section id="visualizer">
@@ -677,28 +787,16 @@
                     <h4>Dr. Bina Patel</h4>
                     <p class="faculty-role">Faculty Mentor</p>
                     <div class="faculty-contact">
-                        <a href="https://vidwan.inflibnet.ac.in/profile/241670" target="_blank" class="profile-link">
-                            📘 View Profile
-                        </a>
+                        <!-- <a href="https://vidwan.inflibnet.ac.in/profile/241670" target="_blank" class="profile-link"> -->
+                            <!-- 📘 View Profile -->
+                        <!-- </a> -->
                         <a href="mailto:binapatel.maths@charusat.ac.in" class="mail-link">
                             📧 binapatel.maths@charusat.ac.in
                         </a>
                     </div>
                 </div>
                 
-                <div class="faculty-member">
-                    <div class="faculty-avatar">👨‍🏫</div>
-                    <h4>Dr. Jignesh Chauhan</h4>
-                    <p class="faculty-role">Assessment Mentor</p>
-                    <div class="faculty-contact">
-                        <a href="https://vidwan.inflibnet.ac.in/profile/213416" target="_blank" class="profile-link">
-                            📘 View Profile
-                        </a>
-                        <a href="mailto:jigneshchauhan.maths@charusat.ac.in" class="mail-link">
-                            📧 jigneshchauhan.maths@charusat.ac.in
-                        </a>
-                    </div>
-                </div>
+               
             </div>
         </div>
 
