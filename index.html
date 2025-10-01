@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MATHS PROJECT | MATCHING ALGORITHM FOR ASSIGNING THE WORK</title>
+    <title>MATHS PROJECT</title>
     
     <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,22 +36,21 @@
             <!-- Feedback Button - Place this in your navigation -->
 <nav>
     <div class="logo">MATHS PROJECT</div>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     <ul>
-        <li><a href="#Home" onclick="return false;">Home</a></li>  <!-- Home link that does nothing -->
+        <li><a href="#Home" onclick="return false;">Home</a></li>
         <li><a href="#about">About Project</a></li>
-        <li><a href="#services">Applications</a></li>
+        <!-- <li><a href="#services">Applications</a></li> -->
         <li><a href="#visualizer">Algorithm Visualizer</a></li>
         <li><a href="#algorithm">How It Works</a></li>
         <li><a href="#conclusion">Conclusion</a></li>
         <li><a href="#about-us">About Us</a></li>
-        <li><a href="YOUR_FEEDBACK_LINK" target="_blank" class="feedback-btn">Feedback</a></li>
+        <!-- <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfjbhyuxkfjGYL22YCZCGLvdSkK6_VITP_m5Ji3JmuA3jBwDA/viewform" target="_blank" class="feedback-btn">Feedback</a></li> -->
     </ul>
 </nav>
 <!-- OR Place this as a floating button -->
 <div class="floating-feedback">
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfjbhyuxkfjGYL22YCZCGLvdSkK6_VITP_m5Ji3JmuA3jBwDA/viewform" target="_blank" class="floating-btn">
-        💬 Feedback
-    </a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfjbhyuxkfjGYL22YCZCGLvdSkK6_VITP_m5Ji3JmuA3jBwDA/viewform" target="_blank" class="floating-btn">💬 Feedback</a>
 </div>
         </header>
 
@@ -60,14 +59,14 @@
             <section id="hero">
                 <div class="hero-content">
                     <h1>MATCHING ALGORITHM FOR ASSIGNING WORK</h1>
-                    <p style="font-size: 1.4rem; margin-bottom: 3rem; opacity: 0.9;">
+                    <p class="hero-lead">
                         Advanced Hungarian Algorithm for Optimal Assignment Problems
                     </p>
                     
                     <div class="image-container">
-                        <h3 style="color: #e53e3e; font-size: 2rem;">Assignment Problem Solution</h3>
+                        <h3 class="assignment-title">Assignment Problem Solution</h3>
                         <div class="content-card">
-                            <p style="font-size: 1.2rem;">The Assignment Problem involves finding the optimal one-to-one matching between workers and tasks to minimize total cost using mathematical optimization techniques.</p>
+                            <p class="assignment-desc">The Assignment Problem involves finding the optimal one-to-one matching between workers and tasks to minimize total cost using mathematical optimization techniques.</p>
                         </div>
                     </div>
                 </div>
@@ -698,80 +697,200 @@
 </section>
 
 
-            <!-- Visualizer Section -->
-            <section id="visualizer">
-                <div class="container">
-                    <h2>Algorithm Visualizer</h2>
-                    <div class="vis-container">
-                        <canvas id="algo-canvas"></canvas>
-                        <div class="visualizer-controls">
-                            <button class="visualizer-btn btn-primary" id="start-viz">Start Visualization</button>
-                            <button class="visualizer-btn btn-secondary" id="reset-viz">Reset</button>
-                            <button class="visualizer-btn btn-secondary" id="step-viz">Step Forward</button>
-                        </div>
-                        <div id="viz-message"></div>
+<!-- Visualizer Section -->
+<section id="visualizer">
+    <div class="container">
+        <h2>Algorithm Visualizer</h2>
+        <div class="vis-container">
+            <div class="visualizer-card">
+                <canvas id="algo-canvas-1">
+                    <!-- Fallback content for canvas -->
+                    <div class="canvas-placeholder">
+                        <div class="placeholder-icon">⚡</div>
+                        <div class="placeholder-text">Algorithm Visualization Canvas</div>
+                        <div class="placeholder-subtext">Interactive step-by-step demonstration</div>
+                    </div>
+                </canvas>
+                <div class="visualizer-controls">
+                    <button class="visualizer-btn btn-primary" id="start-viz-1">
+                        <span>▶️</span> Start Visualization
+                    </button>
+                    <button class="visualizer-btn btn-secondary" id="reset-viz-1">
+                        <span>🔄</span> Reset
+                    </button>
+                    <button class="visualizer-btn btn-secondary" id="step-viz-1">
+                        <span>⏩</span> Step Forward
+                    </button>
+                </div>
+                <div id="viz-message-1">Click "Start Visualization" to begin the algorithm demonstration</div>
+                
+                <div class="visualizer-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Steps Completed</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Time Elapsed</div>
+                        <div class="stat-value">0s</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Optimal Cost</div>
+                        <div class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Status</div>
+                        <div class="stat-value">Ready</div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Visualizer 2 Section -->
 <section id="visualizer2">
     <div class="container">
         <h2>Matrix Algorithm Visualizer</h2>
         <div class="vis-container">
-            <canvas id="matrix-canvas"></canvas>
-            <div class="visualizer-controls">
-                <button class="visualizer-btn btn-primary" id="start-viz2">Start Visualization</button>
-                <button class="visualizer-btn btn-secondary" id="reset-viz2">Reset</button>
-                <button class="visualizer-btn btn-secondary" id="step-viz2">Step Forward</button>
+            <div class="visualizer2-card">
+                <canvas id="matrix-canvas">
+                    <!-- Fallback content for canvas -->
+                    <div class="canvas-placeholder">
+                        <div class="placeholder-icon">🔢</div>
+                        <div class="placeholder-text">Matrix Operations Canvas</div>
+                        <div class="placeholder-subtext">Real-time cost matrix transformations</div>
+                    </div>
+                </canvas>
+                <div class="visualizer-controls">
+                    <button class="visualizer-btn btn-primary" id="start-viz2">
+                        <span>🧮</span> Start Visualization
+                    </button>
+                    <button class="visualizer-btn btn-secondary" id="reset-viz2">
+                        <span>🔄</span> Reset
+                    </button>
+                    <button class="visualizer-btn btn-secondary" id="step-viz2">
+                        <span>⏩</span> Step Forward
+                    </button>
+                </div>
+                <div id="viz-message2">Click "Start Visualization" to generate and solve a cost matrix</div>
+                
+                <div class="visualizer-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Matrix Size</div>
+                        <div class="stat-value">n×n</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Operations</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Optimal Cost</div>
+                        <div class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Efficiency</div>
+                        <div class="stat-value">-</div>
+                    </div>
+                </div>
             </div>
-            <div id="viz-message2"></div>
         </div>
     </div>
 </section>
 
-            <!-- Algorithm Section -->
-            <section id="algorithm">
-                <div class="container">
-                    <h2>How the Algorithm Works</h2>
-                    <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem;">
-                        The Hungarian Algorithm follows a systematic approach to solve assignment problems:
-                    </p>
-                    <ol style="font-size: 1.1rem; line-height: 1.7; padding-left: 1.5rem;">
-                        <li>Reduce the cost matrix by subtracting row and column minimums</li>
-                        <li>Find the minimum number of lines to cover all zeros</li>
-                        <li>If the number of lines equals the matrix size, an optimal assignment is found</li>
-                        <li>Otherwise, adjust the matrix and repeat the process</li>
-                    </ol>
-                    <div class="iframe-container">
-                        <iframe src="https://algorithms.discrete.ma.tum.de/graph-algorithms/matchings-hungarian-method/index_en.html" title="Hungarian Algorithm Animation"></iframe>
+<!-- Algorithm Section -->
+<section id="algorithm">
+    <div class="container">
+        <div class="algorithm-header">
+            <h2>How the Algorithm Works</h2>
+            <div class="header-decoration">
+                <div class="decoration-line"></div>
+                <div class="decoration-icon">⚙️</div>
+                <div class="decoration-line"></div>
+            </div>
+        </div>
+        
+        <div class="algorithm-content">
+            <div class="intro-card">
+                <p class="intro-text">
+                    The Hungarian Algorithm follows a systematic approach to solve assignment problems efficiently with a time complexity of <span class="complexity-highlight">O(n³)</span>:
+                </p>
+            </div>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Row Reduction</h3>
+                        <p>Subtract the minimum value of each row from all elements in that row</p>
                     </div>
                 </div>
-            </section>
-
-            <!-- Conclusion Section -->
-            <section id="conclusion">
-                <div class="container">
-                    <h2>Conclusion</h2>
-                    <h3>Key Takeaways</h3>
-                    <p style="font-size: 1.1rem; line-height: 1.7;">
-                        The Hungarian Algorithm provides an efficient solution to assignment problems with a time complexity of O(n³), making it suitable for practical applications with reasonable problem sizes.
-                    </p>
-                    <h3>Advantages</h3>
-                    <ul style="font-size: 1.1rem; line-height: 1.7; padding-left: 1.5rem;">
-                        <li>Guarantees optimal solution</li>
-                        <li>Efficient for medium-sized problems</li>
-                        <li>Easy to implement and understand</li>
-                        <li>Wide range of applications</li>
-                    </ul>
-                    <h3>Limitations</h3>
-                    <ul style="font-size: 1.1rem; line-height: 1.7; padding-left: 1.5rem;">
-                        <li>Only applicable to balanced assignment problems</li>
-                        <li>Assumes linear cost functions</li>
-                        <li>May be inefficient for very large problems</li>
-                    </ul>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Column Reduction</h3>
+                        <p>Subtract the minimum value of each column from all elements in that column</p>
+                    </div>
                 </div>
-            </section>
-
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Zero Covering</h3>
+                        <p>Find the minimum number of lines to cover all zeros in the matrix</p>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Optimal Check</h3>
+                        <p>If lines equal matrix size, optimal assignment found. Otherwise, adjust matrix</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="algorithm-visualization">
+                <h3 class="viz-title">Interactive Algorithm Demonstration</h3>
+                <div class="iframe-container">
+                    <iframe src="https://algorithms.discrete.ma.tum.de/graph-algorithms/matchings-hungarian-method/index_en.html" 
+                            title="Hungarian Algorithm Animation"
+                            loading="lazy">
+                    </iframe>
+                </div>
+                <p class="viz-note">Use the interactive visualization above to see the algorithm in action step by step</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Conclusion Section -->
+<section id="conclusion">
+    <div class="container">
+        <h2>Conclusion</h2>
+        <h3>Key Takeaways</h3>
+        <p style="font-size: 1.1rem; line-height: 1.7;">
+            The Hungarian Algorithm provides an efficient solution to assignment problems with a time complexity of <span class="complexity-highlight">O(n³)</span>, making it suitable for practical applications with reasonable problem sizes.
+        </p>
+        <h3>Advantages</h3>
+        <ul style="font-size: 1.1rem; line-height: 1.7; padding-left: 1.5rem;">
+            <li>Guarantees optimal solution</li>
+            <li>Efficient for medium-sized problems</li>
+            <li>Easy to implement and understand</li>
+            <li>Wide range of applications</li>
+        </ul>
+        <h3>Limitations</h3>
+        <ul style="font-size: 1.1rem; line-height: 1.7; padding-left: 1.5rem;">
+            <li>Only applicable to balanced assignment problems</li>
+            <li>Assumes linear cost functions</li>
+            <li>May be inefficient for very large problems</li>
+        </ul>
+        
+        <div class="final-summary">
+            <h4>Final Thoughts</h4>
+            <p>The Hungarian Algorithm remains a cornerstone in optimization problems, balancing efficiency with guaranteed optimality for practical assignment scenarios.</p>
+        </div>
+    </div>
+</section>
 <!-- About Us Section -->
 <section id="about-us">
     <div class="container">
@@ -922,20 +1041,118 @@
             </div>
         </div>
 
-        <div class="project-purpose">
-            <h3>Project Purpose</h3>
-            <p>This Mathematics Project focuses on implementing and visualizing the Hungarian Algorithm for optimal assignment problems. The project demonstrates the practical application of combinatorial optimization algorithms in solving real-world resource allocation problems.</p>
+<div class="project-purpose">
+    <div class="purpose-header">
+        <div class="purpose-icon"></div>
+        <h3>Project Purpose</h3>
+        <div class="purpose-subtitle">Advancing Optimization Through Visualization</div>
+    </div>
+    
+    <div class="purpose-content">
+        <p>This comprehensive Mathematics Project focuses on implementing and visualizing the Hungarian Algorithm for optimal assignment problems. The project demonstrates the practical application of combinatorial optimization algorithms in solving real-world resource allocation challenges with maximum efficiency.</p>
+        
+        <div class="purpose-features">
+            <div class="purpose-feature">
+                <div class="feature-icon">🧮</div>
+                <h4>Algorithm Implementation</h4>
+                <p>Complete implementation of the Hungarian Algorithm with step-by-step execution</p>
+            </div>
+            
+            <div class="purpose-feature">
+                <div class="feature-icon">📊</div>
+                <h4>Visual Demonstration</h4>
+                <p>Interactive visualizations showing the algorithm's decision-making process</p>
+            </div>
+            
+            <div class="purpose-feature">
+                <div class="feature-icon">⚡</div>
+                <h4>Performance Analysis</h4>
+                <p>Real-time complexity analysis and efficiency measurements</p>
+            </div>
+            
+            <div class="purpose-feature">
+                <div class="feature-icon">🌐</div>
+                <h4>Practical Applications</h4>
+                <p>Demonstration of real-world use cases and optimization scenarios</p>
+            </div>
+        </div>
+        
+        <div class="purpose-cta">
+            <p class="cta-text">Explore the power of combinatorial optimization through interactive learning</p>
         </div>
     </div>
-</section>
+</div>
         </main>
 
-        <footer>
-            <div class="container">
-                <p>MATHS PROJECT | MATCHING ALGORITHM FOR ASSIGNING THE WORK</p>
-                <p>© 2025 All Rights Reserved</p>
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-logo">
+                    <div class="logo-icon">🧮</div>
+                    <div class="footer-logo-text">MATHS PROJECT</div>
+                </div>
+                <div class="footer-tagline">MATCHING ALGORITHM FOR ASSIGNING THE WORK</div>
+                <p class="footer-description">
+                    Implementing and visualizing the Hungarian Algorithm for optimal assignment problems. 
+                    A comprehensive demonstration of combinatorial optimization in mathematics.
+                </p>
             </div>
-        </footer>
+            
+            <div class="footer-links">
+                <h4 class="footer-heading">Quick Links</h4>
+                <a href="#about">About Project</a>
+                <a href="#algorithm">How It Works</a>
+                <a href="#visualizer">Visualizers</a>
+                <a href="#conclusion">Conclusion</a>
+            </div>
+            
+            <div class="footer-contact">
+                <h4 class="footer-heading">Project Info</h4>
+                <div class="contact-item">
+                    <span class="contact-icon">📚</span>
+                    <span>Mathematics Project</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">⚡</span>
+                    <span>Hungarian Algorithm</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🎯</span>
+                    <span>Optimization Study</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                © 2025 All Rights Reserved | Mathematics Assignment Algorithm Project
+            </div>
+<div class="social-links-container">
+    <div class="social-links-title">Project Documentation</div>
+    <div class="social-links-subtitle">Access complete project files and documentation</div>
+    <div class="footer-social">
+        <a href="https://docs.google.com/document/d/1ox2Q-dXx37l_Huzlkzdp0diHacLV_w3g/edit?usp=drive_link&ouid=108033066204210149632&rtpof=true&sd=true" 
+           target="_blank" 
+           class="social-link" 
+           aria-label="Project Report">
+            <span>📁1</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1YSaivEYzdfVjNmB0hOfPw9s3avKN2XTP/view?usp=drive_link" 
+           target="_blank" 
+           class="social-link" 
+           aria-label="Project Documentation">
+            <span>📁2</span>
+        </a>
+    </div>
+</div>
+            </div>
+            <a href="#" class="back-to-top">
+                <span>↑</span> Back to Top
+            </a>
+        </div>
+    </div>
+</footer>
     </div>
 
     <!-- JavaScript File -->

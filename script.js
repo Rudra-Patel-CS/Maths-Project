@@ -20,6 +20,18 @@ function loadMathJax() {
         },
         svg: {
             fontCache: 'global'
+        },
+        startup: {
+            pageReady: () => {
+                return MathJax.startup.defaultPageReady().then(() => {
+                    // Re-render MathJax on window resize for mobile
+                    window.addEventListener('resize', () => {
+                        if (window.MathJax.typesetPromise) {
+                            window.MathJax.typesetPromise();
+                        }
+                    });
+                });
+            }
         }
     };
 }
@@ -39,42 +51,62 @@ document.addEventListener('DOMContentLoaded', function() {
     let scene, camera, renderer, particles;
     
     function initIntroScene() {
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        renderer = new THREE.WebGLRenderer({ canvas: introCanvas, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        
-        // Create particles
-        const particleGeometry = new THREE.BufferGeometry();
-        const particleCount = 1500;
-        const posArray = new Float32Array(particleCount * 3);
-        
-        for(let i = 0; i < particleCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 10;
-        }
-        
-        particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const particleMaterial = new THREE.PointsMaterial({
-            size: 0.02,
-            color: 0x38a169
-        });
-        
-        particles = new THREE.Points(particleGeometry, particleMaterial);
-        scene.add(particles);
-        
-        camera.position.z = 5;
-        
-        // Animation
-        function animate() {
-            requestAnimationFrame(animate);
+        // Check if WebGL is supported
+        try {
+            const context = introCanvas.getContext('webgl') || introCanvas.getContext('experimental-webgl');
+            if (!context) {
+                throw new Error('WebGL not supported');
+            }
             
-            particles.rotation.x += 0.001;
-            particles.rotation.y += 0.001;
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: introCanvas, 
+                alpha: true,
+                antialias: true 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
             
-            renderer.render(scene, camera);
+            // Create particles
+            const particleGeometry = new THREE.BufferGeometry();
+            const particleCount = window.innerWidth < 768 ? 800 : 1500; // Reduce particles on mobile
+            const posArray = new Float32Array(particleCount * 3);
+            
+            for(let i = 0; i < particleCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+            }
+            
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0x38a169,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            particles = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particles);
+            
+            camera.position.z = 5;
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                particles.rotation.x += 0.001;
+                particles.rotation.y += 0.001;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+        } catch (error) {
+            console.warn('WebGL not supported, falling back to CSS animation');
+            // Fallback animation
+            introCanvas.style.display = 'none';
         }
-        
-        animate();
         
         // Text animation
         let opacity = 0;
@@ -99,6 +131,10 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             introOverlay.style.display = 'none';
             mainContent.style.display = 'block';
+            // Trigger MathJax rendering after intro
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise();
+            }
         }, 1000);
     }
     
@@ -107,12 +143,52 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize the scene
     initIntroScene();
     
-    // Handle window resize
+    // Handle window resize with debounce
+    let resizeTimeout;
     window.addEventListener('resize', function() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (camera && renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        }, 250);
     });
+});
+
+// Mobile menu toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('nav ul');
+    
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+            menuToggle.textContent = navMenu.classList.contains('show') ? '✕' : '☰';
+            // Prevent body scroll when menu is open on mobile
+            document.body.style.overflow = navMenu.classList.contains('show') ? 'hidden' : '';
+        });
+        
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('show');
+                menuToggle.textContent = '☰';
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('nav') && navMenu.classList.contains('show')) {
+                navMenu.classList.remove('show');
+                menuToggle.textContent = '☰';
+                document.body.style.overflow = '';
+            }
+        });
+    }
 });
 
 // Slideshow Functionality
@@ -155,29 +231,42 @@ document.addEventListener('DOMContentLoaded', function() {
         slides[currentSlide].classList.add('active');
         
         // Update the active indicator
-        indicators[currentSlide].classList.add('active');
+        if (indicators[currentSlide]) {
+            indicators[currentSlide].classList.add('active');
+        }
         
         // Update the current slide number
         currentSlideElement.textContent = currentSlide + 1;
         
         // Update button states
         updateButtonStates();
+        
+        // Re-render MathJax for the current slide
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            setTimeout(() => {
+                window.MathJax.typesetPromise([slides[currentSlide]]);
+            }, 100);
+        }
     }
     
     // Function to update button states
     function updateButtonStates() {
-        prevBtn.disabled = currentSlide === 0;
-        nextBtn.disabled = currentSlide === totalSlides - 1;
+        if (prevBtn) prevBtn.disabled = currentSlide === 0;
+        if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
     }
     
     // Event listeners for buttons
-    prevBtn.addEventListener('click', function() {
-        showSlide(currentSlide - 1);
-    });
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            showSlide(currentSlide - 1);
+        });
+    }
     
-    nextBtn.addEventListener('click', function() {
-        showSlide(currentSlide + 1);
-    });
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            showSlide(currentSlide + 1);
+        });
+    }
     
     // Event listeners for indicators
     indicators.forEach(indicator => {
@@ -198,26 +287,67 @@ document.addEventListener('DOMContentLoaded', function() {
             showSlide(currentSlide + 1);
         }
     });
+    
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const slideshowContainer = document.querySelector('.slideshow-container');
+    if (slideshowContainer) {
+        slideshowContainer.addEventListener('touchstart', function(event) {
+            touchStartX = event.changedTouches[0].screenX;
+        });
+        
+        slideshowContainer.addEventListener('touchend', function(event) {
+            touchEndX = event.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next slide
+                    showSlide(currentSlide + 1);
+                } else {
+                    // Swipe right - previous slide
+                    showSlide(currentSlide - 1);
+                }
+            }
+        }
+    }
 });
 
 // Algorithm Visualizer 1 (Graph Visualization)
 document.addEventListener('DOMContentLoaded', function() {
-    const canvas = document.getElementById('algo-canvas');
+    const canvas = document.getElementById('algo-canvas-1');
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
-    const startBtn = document.getElementById('start-viz');
-    const resetBtn = document.getElementById('reset-viz');
-    const stepBtn = document.getElementById('step-viz');
-    const messageDiv = document.getElementById('viz-message');
+    const startBtn = document.getElementById('start-viz-1');
+    const resetBtn = document.getElementById('reset-viz-1');
+    const stepBtn = document.getElementById('step-viz-1');
+    const messageDiv = document.getElementById('viz-message-1');
     
     // Set canvas size
     function setCanvasSize() {
         const container = canvas.parentElement;
-        canvas.width = container.clientWidth;
-        canvas.height = 420;
+        if (container) {
+            canvas.width = container.clientWidth;
+            canvas.height = window.innerWidth < 768 ? 300 : 420;
+        }
     }
     
     setCanvasSize();
-    window.addEventListener('resize', setCanvasSize);
+    
+    // Debounced resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(setCanvasSize, 250);
+    });
     
     // Visualizer state
     let animationId;
@@ -231,17 +361,39 @@ document.addEventListener('DOMContentLoaded', function() {
         [5, 8, 1]
     ];
     
-    // Workers and jobs
-    const workers = ['Worker 1', 'Worker 2', 'Worker 3'];
-    const jobs = ['Job 1', 'Job 2', 'Job 3'];
-    
     // Initialize visualizer
     function initVisualizer() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawGraph();
-        messageDiv.textContent = 'Click "Start Visualization" to begin.';
+        if (messageDiv) messageDiv.textContent = 'Click "Start Visualization" to begin.';
         step = 0;
         isRunning = false;
+        
+        // Update stats
+        updateStats();
+    }
+    
+    // Update statistics panel
+    function updateStats() {
+        const stats = document.querySelectorAll('#visualizer .stat-value');
+        if (stats.length >= 4) {
+            stats[0].textContent = step;
+            stats[1].textContent = step * 2 + 's';
+            stats[2].textContent = step >= 4 ? '9' : '-';
+            stats[3].textContent = getStatusText();
+        }
+    }
+    
+    function getStatusText() {
+        switch(step) {
+            case 0: return 'Ready';
+            case 1: return 'Initial Matrix';
+            case 2: return 'Row Reduction';
+            case 3: return 'Column Reduction';
+            case 4: return 'Finding Assignment';
+            case 5: return 'Complete';
+            default: return 'Ready';
+        }
     }
     
     // Draw the graph visualization
@@ -255,11 +407,13 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
+        // Draw grid pattern for better visualization
+        drawGrid();
+        
         // Draw workers on left
         const workerCount = costMatrix.length;
         const jobCount = costMatrix[0].length;
-        const nodeRadius = Math.min(canvas.width, canvas.height) / 20;
-        const centerY = canvas.height / 2;
+        const nodeRadius = Math.min(canvas.width, canvas.height) / (window.innerWidth < 768 ? 15 : 20);
         const leftX = canvas.width * 0.2;
         const rightX = canvas.width * 0.8;
         
@@ -280,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Draw connections with costs
-        ctx.font = '14px Arial';
+        ctx.font = window.innerWidth < 768 ? '12px Arial' : '14px Arial';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         
@@ -328,10 +482,62 @@ document.addEventListener('DOMContentLoaded', function() {
                 const midX = (leftX + rightX) / 2;
                 const midY = (startY + endY) / 2;
                 
-                ctx.fillStyle = lineColor;
+                // Background for cost label
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                const textWidth = ctx.measureText(costMatrix[i][j]).width;
+                ctx.fillRect(midX - textWidth/2 - 5, midY - 8, textWidth + 10, 16);
+                
+                // Cost text
+                ctx.fillStyle = '#ffffff';
+                ctx.font = window.innerWidth < 768 ? 'bold 10px Arial' : 'bold 12px Arial';
                 ctx.fillText(costMatrix[i][j], midX, midY);
             }
         }
+        
+        // Draw step information
+        drawStepInfo();
+    }
+    
+    // Draw grid pattern
+    function drawGrid() {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+        ctx.lineWidth = 1;
+        
+        const gridSize = window.innerWidth < 768 ? 30 : 50;
+        
+        // Vertical lines
+        for (let x = 0; x < canvas.width; x += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+        }
+        
+        // Horizontal lines
+        for (let y = 0; y < canvas.height; y += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
+        }
+    }
+    
+    // Draw step information
+    function drawStepInfo() {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.font = window.innerWidth < 768 ? 'bold 14px Arial' : 'bold 16px Arial';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        
+        const info = [
+            `Step: ${step}/5`,
+            `Status: ${getStatusText()}`,
+            `Matrix: 3x3`
+        ];
+        
+        info.forEach((text, index) => {
+            ctx.fillText(text, 10, 10 + index * 20);
+        });
     }
     
     // Draw a node
@@ -356,7 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Node label
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 16px Arial';
+        ctx.font = window.innerWidth < 768 ? 'bold 14px Arial' : 'bold 16px Arial';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(label, x, y);
@@ -370,19 +576,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         switch(step) {
             case 1:
-                messageDiv.textContent = 'Step 1: Original cost matrix';
+                if (messageDiv) messageDiv.textContent = 'Step 1: Original cost matrix';
                 break;
             case 2:
-                messageDiv.textContent = 'Step 2: Row reduction - finding minimum in each row';
+                if (messageDiv) messageDiv.textContent = 'Step 2: Row reduction - finding minimum in each row';
                 break;
             case 3:
-                messageDiv.textContent = 'Step 3: Column reduction - finding minimum in each column';
+                if (messageDiv) messageDiv.textContent = 'Step 3: Column reduction - finding minimum in each column';
                 break;
             case 4:
-                messageDiv.textContent = 'Step 4: Finding optimal assignment';
+                if (messageDiv) messageDiv.textContent = 'Step 4: Finding optimal assignment';
                 break;
             case 5:
-                messageDiv.textContent = 'Complete! Optimal assignment found with total cost 9';
+                if (messageDiv) messageDiv.textContent = 'Complete! Optimal assignment found with total cost 9';
                 isRunning = false;
                 break;
             default:
@@ -391,6 +597,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         drawGraph();
+        updateStats();
         
         if (isRunning && step < 5) {
             animationId = setTimeout(animateStep, 2000);
@@ -398,27 +605,50 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Event listeners for visualizer buttons
-    startBtn.addEventListener('click', function() {
-        if (!isRunning) {
-            isRunning = true;
-            step = 0;
-            animateStep();
-        }
-    });
+    if (startBtn) {
+        startBtn.addEventListener('click', function() {
+            if (!isRunning) {
+                isRunning = true;
+                step = 0;
+                animateStep();
+            }
+        });
+    }
     
-    resetBtn.addEventListener('click', function() {
-        isRunning = false;
-        if (animationId) {
-            clearTimeout(animationId);
-        }
-        initVisualizer();
-    });
-    
-    stepBtn.addEventListener('click', function() {
-        if (!isRunning) {
-            isRunning = true;
-            animateStep();
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
             isRunning = false;
+            if (animationId) {
+                clearTimeout(animationId);
+            }
+            initVisualizer();
+        });
+    }
+    
+    if (stepBtn) {
+        stepBtn.addEventListener('click', function() {
+            if (!isRunning) {
+                isRunning = true;
+                animateStep();
+                isRunning = false;
+            }
+        });
+    }
+    
+    // Add keyboard controls
+    document.addEventListener('keydown', function(event) {
+        if (event.key === ' ') {
+            // Space bar to start/pause
+            if (!isRunning) {
+                isRunning = true;
+                animateStep();
+            }
+        } else if (event.key === 'r' || event.key === 'R') {
+            // R key to reset
+            if (resetBtn) resetBtn.click();
+        } else if (event.key === 'ArrowRight') {
+            // Right arrow for step forward
+            if (stepBtn) stepBtn.click();
         }
     });
     
@@ -426,9 +656,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initVisualizer();
 });
 
-// Algorithm Visualizer 2 (Matrix Visualization)
+// Matrix Visualizer 2
 document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('matrix-canvas');
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
     const startBtn = document.getElementById('start-viz2');
     const resetBtn = document.getElementById('reset-viz2');
@@ -438,12 +670,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set canvas size
     function setCanvasSize() {
         const container = canvas.parentElement;
-        canvas.width = container.clientWidth;
-        canvas.height = 420;
+        if (container) {
+            canvas.width = container.clientWidth;
+            canvas.height = window.innerWidth < 768 ? 300 : 420;
+        }
     }
     
     setCanvasSize();
-    window.addEventListener('resize', setCanvasSize);
+    
+    // Debounced resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(setCanvasSize, 250);
+    });
     
     // Visualizer state
     let animationId;
@@ -457,235 +697,219 @@ document.addEventListener('DOMContentLoaded', function() {
         [5, 8, 1]
     ];
     
-    // Workers and jobs
-    const workers = ['Worker 1', 'Worker 2', 'Worker 3'];
-    const jobs = ['Job 1', 'Job 2', 'Job 3'];
-    
     // Initialize visualizer
     function initVisualizer() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawMatrix();
-        messageDiv.textContent = 'Click "Start Visualization" to begin the Hungarian Algorithm.';
+        if (messageDiv) messageDiv.textContent = 'Click "Start Visualization" to begin.';
         step = 0;
         isRunning = false;
+        updateStats();
     }
     
-    // Draw the cost matrix
+    // Update statistics panel
+    function updateStats() {
+        const stats = document.querySelectorAll('#visualizer2 .stat-value');
+        if (stats.length >= 4) {
+            stats[0].textContent = '3×3';
+            stats[1].textContent = step * 3;
+            stats[2].textContent = step >= 4 ? '9' : '-';
+            stats[3].textContent = step >= 4 ? 'Optimal' : 'Processing';
+        }
+    }
+    
+    // Draw matrix visualization
     function drawMatrix() {
-        const cellWidth = canvas.width / 4;
-        const cellHeight = canvas.height / 4;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        // Clear canvas with gradient background
+        // Draw background
         const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
         gradient.addColorStop(0, '#02101a');
         gradient.addColorStop(1, '#041428');
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Draw headers
-        ctx.fillStyle = '#e53e3e';
-        ctx.font = 'bold 18px Arial';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
+        // Draw grid
+        drawGrid();
         
-        // Draw worker labels
-        for (let i = 0; i < workers.length; i++) {
-            ctx.fillText(workers[i], cellWidth / 2, (i + 1.5) * cellHeight);
-        }
+        const matrix = costMatrix;
+        const rows = matrix.length;
+        const cols = matrix[0].length;
         
-        // Draw job labels
-        for (let j = 0; j < jobs.length; j++) {
-            ctx.fillText(jobs[j], (j + 1.5) * cellWidth, cellHeight / 2);
-        }
+        // Calculate cell size and position
+        const cellSize = Math.min(canvas.width, canvas.height) / (Math.max(rows, cols) + (window.innerWidth < 768 ? 3 : 2));
+        const startX = (canvas.width - cols * cellSize) / 2;
+        const startY = (canvas.height - rows * cellSize) / 2;
         
         // Draw matrix cells
-        ctx.font = 'bold 18px Arial';
-        
-        for (let i = 0; i < costMatrix.length; i++) {
-            for (let j = 0; j < costMatrix[i].length; j++) {
-                const x = (j + 1.5) * cellWidth;
-                const y = (i + 1.5) * cellHeight;
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                const x = startX + j * cellSize;
+                const y = startY + i * cellSize;
                 
-                // Draw cell background
-                ctx.fillStyle = 'rgba(56, 161, 105, 0.1)';
-                ctx.fillRect(x - cellWidth/2, y - cellHeight/2, cellWidth, cellHeight);
+                // Determine cell color based on current step
+                let cellColor = 'rgba(255, 255, 255, 0.1)';
+                let textColor = '#ffffff';
+                
+                if (step >= 2) {
+                    // Highlight row minimums
+                    const rowMin = Math.min(...matrix[i]);
+                    if (matrix[i][j] === rowMin) {
+                        cellColor = 'rgba(246, 224, 94, 0.3)';
+                    }
+                }
+                
+                if (step >= 3) {
+                    // Highlight column minimums
+                    const colMin = Math.min(...matrix.map(row => row[j]));
+                    if (matrix[i][j] === colMin) {
+                        cellColor = 'rgba(56, 161, 105, 0.3)';
+                    }
+                }
+                
+                if (step >= 4) {
+                    // Highlight assignments
+                    if ((i === 0 && j === 1) || (i === 1 && j === 0) || (i === 2 && j === 2)) {
+                        cellColor = 'rgba(236, 72, 153, 0.4)';
+                    }
+                }
+                
+                // Draw cell
+                ctx.fillStyle = cellColor;
+                ctx.fillRect(x, y, cellSize, cellSize);
                 
                 // Draw cell border
-                ctx.strokeStyle = '#38a169';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(x - cellWidth/2, y - cellHeight/2, cellWidth, cellHeight);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(x, y, cellSize, cellSize);
                 
-                // Draw cost value
-                ctx.fillStyle = '#38a169';
-                ctx.fillText(costMatrix[i][j], x, y);
+                // Draw cell value
+                ctx.fillStyle = textColor;
+                ctx.font = window.innerWidth < 768 ? 'bold 14px Arial' : 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(matrix[i][j], x + cellSize/2, y + cellSize/2);
             }
+        }
+        
+        // Draw step information
+        drawStepInfo();
+    }
+    
+    // Draw grid pattern
+    function drawGrid() {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+        ctx.lineWidth = 1;
+        
+        const gridSize = window.innerWidth < 768 ? 30 : 50;
+        
+        for (let x = 0; x < canvas.width; x += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+        }
+        
+        for (let y = 0; y < canvas.height; y += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
         }
     }
     
-    // Animate the algorithm steps
+    // Draw step information
+    function drawStepInfo() {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.font = window.innerWidth < 768 ? 'bold 14px Arial' : 'bold 16px Arial';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        
+        const steps = [
+            'Step 1: Initial Matrix',
+            'Step 2: Row Reduction',
+            'Step 3: Column Reduction', 
+            'Step 4: Optimal Assignment',
+            'Step 5: Complete'
+        ];
+        
+        ctx.fillText(`Current: ${steps[Math.min(step, 4)]}`, 10, 10);
+    }
+    
+    // Animate steps
     function animateStep() {
         if (!isRunning) return;
         
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawMatrix();
-        
-        // Highlight current step
-        const cellWidth = canvas.width / 4;
-        const cellHeight = canvas.height / 4;
+        step++;
         
         switch(step) {
-            case 0:
-                messageDiv.textContent = 'Original cost matrix - Ready to start algorithm';
-                break;
-                
             case 1:
-                messageDiv.textContent = 'Step 1: Row reduction - subtract minimum from each row';
-                ctx.fillStyle = 'rgba(245, 158, 11, 0.3)'; // Amber highlight
-                for (let i = 0; i < costMatrix.length; i++) {
-                    const min = Math.min(...costMatrix[i]);
-                    for (let j = 0; j < costMatrix[i].length; j++) {
-                        if (costMatrix[i][j] === min) {
-                            const x = (j + 1.5) * cellWidth;
-                            const y = (i + 1.5) * cellHeight;
-                            ctx.beginPath();
-                            ctx.arc(x, y, cellWidth/3, 0, Math.PI * 2);
-                            ctx.fill();
-                        }
-                    }
-                }
+                if (messageDiv) messageDiv.textContent = 'Step 1: Displaying initial cost matrix';
                 break;
-                
             case 2:
-                messageDiv.textContent = 'Step 2: Column reduction - subtract minimum from each column';
-                ctx.fillStyle = 'rgba(59, 130, 246, 0.3)'; // Blue highlight
-                for (let j = 0; j < costMatrix[0].length; j++) {
-                    let min = Infinity;
-                    for (let i = 0; i < costMatrix.length; i++) {
-                        if (costMatrix[i][j] < min) min = costMatrix[i][j];
-                    }
-                    for (let i = 0; i < costMatrix.length; i++) {
-                        if (costMatrix[i][j] === min) {
-                            const x = (j + 1.5) * cellWidth;
-                            const y = (i + 1.5) * cellHeight;
-                            ctx.beginPath();
-                            ctx.arc(x, y, cellWidth/3, 0, Math.PI * 2);
-                            ctx.fill();
-                        }
-                    }
-                }
+                if (messageDiv) messageDiv.textContent = 'Step 2: Row reduction - subtracting row minimums';
                 break;
-                
             case 3:
-                messageDiv.textContent = 'Step 3: Find minimum lines to cover all zeros';
-                // Draw lines covering zeros
-                ctx.strokeStyle = '#e53e3e';
-                ctx.lineWidth = 4;
-                ctx.setLineDash([5, 5]);
-                
-                // Vertical line through column 1
-                ctx.beginPath();
-                ctx.moveTo(cellWidth, 0);
-                ctx.lineTo(cellWidth, canvas.height);
-                ctx.stroke();
-                
-                // Horizontal line through row 2
-                ctx.beginPath();
-                ctx.moveTo(0, 2 * cellHeight);
-                ctx.lineTo(canvas.width, 2 * cellHeight);
-                ctx.stroke();
-                
-                ctx.setLineDash([]);
+                if (messageDiv) messageDiv.textContent = 'Step 3: Column reduction - subtracting column minimums';
                 break;
-                
             case 4:
-                messageDiv.textContent = 'Step 4: Find smallest uncovered element and adjust matrix';
-                ctx.fillStyle = 'rgba(239, 68, 68, 0.3)'; // Red highlight
-                // Highlight uncovered elements
-                const uncoveredElements = [
-                    [0, 0], [0, 2],  // W1: J1, J3
-                    [1, 1],          // W2: J2  
-                    [2, 0], [2, 1]   // W3: J1, J2
-                ];
-                
-                uncoveredElements.forEach(([i, j]) => {
-                    const x = (j + 1.5) * cellWidth;
-                    const y = (i + 1.5) * cellHeight;
-                    ctx.fillRect(x - cellWidth/2, y - cellHeight/2, cellWidth, cellHeight);
-                });
+                if (messageDiv) messageDiv.textContent = 'Step 4: Finding optimal assignment';
                 break;
-                
             case 5:
-                messageDiv.textContent = 'Optimal assignment found!';
-                // Highlight optimal assignment
-                ctx.fillStyle = 'rgba(34, 197, 94, 0.5)'; // Green highlight
-                const assignment = [
-                    [0, 1], // W1 -> J2
-                    [1, 0], // W2 -> J1  
-                    [2, 2]  // W3 -> J3
-                ];
-                
-                assignment.forEach(([i, j]) => {
-                    const x = (j + 1.5) * cellWidth;
-                    const y = (i + 1.5) * cellHeight;
-                    ctx.fillRect(x - cellWidth/2, y - cellHeight/2, cellWidth, cellHeight);
-                    
-                    // Draw check mark
-                    ctx.strokeStyle = '#ffffff';
-                    ctx.lineWidth = 3;
-                    ctx.beginPath();
-                    ctx.moveTo(x - 15, y);
-                    ctx.lineTo(x - 5, y + 10);
-                    ctx.lineTo(x + 15, y - 10);
-                    ctx.stroke();
-                });
+                if (messageDiv) messageDiv.textContent = 'Complete! Optimal assignment found';
                 isRunning = false;
                 break;
+            default:
+                step = 0;
+                isRunning = false;
         }
         
-        step++;
-        if (step > 5) {
-            step = 0;
-            isRunning = false;
-            messageDiv.textContent = 'Visualization complete! Click "Start" to run again.';
-        }
+        drawMatrix();
+        updateStats();
         
-        if (isRunning) {
-            animationId = setTimeout(animateStep, 2500);
+        if (isRunning && step < 5) {
+            animationId = setTimeout(animateStep, 2000);
         }
     }
     
-    // Event listeners for visualizer buttons
-    startBtn.addEventListener('click', function() {
-        if (!isRunning) {
-            isRunning = true;
-            step = 0;
-            animateStep();
-        }
-    });
+    // Event listeners
+    if (startBtn) {
+        startBtn.addEventListener('click', function() {
+            if (!isRunning) {
+                isRunning = true;
+                step = 0;
+                animateStep();
+            }
+        });
+    }
     
-    resetBtn.addEventListener('click', function() {
-        isRunning = false;
-        if (animationId) {
-            clearTimeout(animationId);
-        }
-        initVisualizer();
-    });
-    
-    stepBtn.addEventListener('click', function() {
-        if (!isRunning) {
-            isRunning = true;
-            animateStep();
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
             isRunning = false;
-        }
-    });
+            if (animationId) {
+                clearTimeout(animationId);
+            }
+            initVisualizer();
+        });
+    }
     
-    // Initialize the visualizer
+    if (stepBtn) {
+        stepBtn.addEventListener('click', function() {
+            if (!isRunning) {
+                isRunning = true;
+                animateStep();
+                isRunning = false;
+            }
+        });
+    }
+    
+    // Initialize
     initVisualizer();
 });
 
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
-    const navLinks = document.querySelectorAll('nav a');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -695,13 +919,39 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
+                const offsetTop = targetSection.offsetTop - 80;
+                
                 window.scrollTo({
-                    top: targetSection.offsetTop - 80,
+                    top: offsetTop,
                     behavior: 'smooth'
                 });
             }
         });
     });
+});
+
+// Back to top functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Show/hide back to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+    }
 });
 
 // Initialize MathJax
@@ -713,3 +963,16 @@ window.MathJax = {
         fontCache: 'global'
     }
 };
+
+// Performance optimization for mobile
+if (window.innerWidth < 768) {
+    // Reduce animation intensity on mobile
+    document.documentElement.style.setProperty('--animation-duration', '0.3s');
+}
+
+// Handle orientation changes
+window.addEventListener('orientationchange', function() {
+    setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+    }, 300);
+});
