@@ -72,487 +72,462 @@
                 </div>
             </section>
 
-            <section id="algorithm-slideshow" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; padding: 5rem 10%;">
-                <div class="container">
-                    <header>
-                        <h1>Hungarian Algorithm</h1>
-                        <p class="subtitle">Step-by-Step Explanation</p>
-                    </header>
-                    
-                    <div class="slideshow-container">
-                        <!-- Slide 1 -->
-                        <div class="slide active">
-                            <div class="slide-content">
-                                <h2 class="slide-title">Hungarian Algorithm</h2>
-                                <h3 class="slide-title">FULL EXPLANATION</h3>
-                                <div class="math-formula">
-                                    \[ V = \frac{1}{2} b h l \]
-                                </div>
-                                <div class="math-formula">
-                                    \[ a + \frac{y}{h} = 1 \]
-                                </div>
-                                <div class="math-formula">
-                                    \[ ax^2 + bx + c = 0 \]
-                                </div>
-                                <div class="math-formula">
-                                    \[ V = \frac{4}{3} \pi r^3 \]
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 2 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">LET'S LEARN IT THROUGH EXAMPLE</h2>
-                                <p class="slide-text">Let's Take Example of Workers and Jobs.</p>
-                                <p class="slide-text">Which Jobs are Allocated to Which Workers...</p>
-                                <div class="math-formula">
-                                    \[ y = mx + b \]
-                                </div>
-                                <div class="math-formula">
-                                    \[ \sqrt{1 - \frac{4}{3} \pi r^3} \]
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 3 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">LET'S START</h2>
-                                <table>
-                                    <tr>
-                                        <th>Ex.</th>
-                                        <th>J1</th>
-                                        <th>J2</th>
-                                        <th>J3</th>
-                                    </tr>
-                                    <tr>
-                                        <td>W1</td>
-                                        <td>9</td>
-                                        <td>2</td>
-                                        <td>7</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W2</td>
-                                        <td>6</td>
-                                        <td>4</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W3</td>
-                                        <td>5</td>
-                                        <td>8</td>
-                                        <td>1</td>
-                                    </tr>
-                                </table>
-                                <p class="slide-text">This given values are the cost (or distance, time, effort, etc.)</p>
-                                <div class="math-formula">
-                                    \[ V = \frac{1}{2} bhL \]
-                                </div>
-                                <div class="math-formula">
-                                    \[ a - h = 1 \]
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 4 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">STEP-1</h2>
-                                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
-                                    <div>
-                                        <h3 class="slide-title">Original Matrix</h3>
-                                        <table>
-                                            <tr>
-                                                <th></th>
-                                                <th>J1</th>
-                                                <th>J2</th>
-                                                <th>J3</th>
-                                            </tr>
-                                            <tr>
-                                                <td>W1</td>
-                                                <td>9</td>
-                                                <td>2</td>
-                                                <td>7</td>
-                                            </tr>
-                                            <tr>
-                                                <td>W2</td>
-                                                <td>6</td>
-                                                <td>4</td>
-                                                <td>3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>W3</td>
-                                                <td>5</td>
-                                                <td>8</td>
-                                                <td>1</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div>
-                                        <h3 class="slide-title">After Row Reduction</h3>
-                                        <table>
-                                            <tr>
-                                                <th></th>
-                                                <th>J1</th>
-                                                <th>J2</th>
-                                                <th>J3</th>
-                                            </tr>
-                                            <tr>
-                                                <td>W1</td>
-                                                <td>7</td>
-                                                <td>0</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>W2</td>
-                                                <td>3</td>
-                                                <td>1</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <td>W3</td>
-                                                <td>4</td>
-                                                <td>7</td>
-                                                <td>0</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <p class="slide-text">SUBTRACT WHOLE ROW WITH MINIMUM VALUE IN THE ROW</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 5 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">STEP-2</h2>
-                                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
-                                    <div>
-                                        <h3 class="slide-title">After Row Reduction</h3>
-                                        <table>
-                                            <tr>
-                                                <th></th>
-                                                <th>J1</th>
-                                                <th>J2</th>
-                                                <th>J3</th>
-                                            </tr>
-                                            <tr>
-                                                <td>W1</td>
-                                                <td>7</td>
-                                                <td>0</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>W2</td>
-                                                <td>3</td>
-                                                <td>1</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <td>W3</td>
-                                                <td>4</td>
-                                                <td>7</td>
-                                                <td>0</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div>
-                                        <h3 class="slide-title">After Column Reduction</h3>
-                                        <table>
-                                            <tr>
-                                                <th></th>
-                                                <th>J1</th>
-                                                <th>J2</th>
-                                                <th>J3</th>
-                                            </tr>
-                                            <tr>
-                                                <td>W1</td>
-                                                <td>4</td>
-                                                <td>0</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>W2</td>
-                                                <td>0</td>
-                                                <td>1</td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <td>W3</td>
-                                                <td>1</td>
-                                                <td>7</td>
-                                                <td>0</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <p class="slide-text">DO THE SAME WITH COLUMN</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 6 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">STEP-3</h2>
-                                <h3 class="slide-title">FIND MINIMUM LINES THAT COVER ALL ZEROS</h3>
-                                <table>
-                                    <tr>
-                                        <th></th>
-                                        <th>J1</th>
-                                        <th>J2</th>
-                                        <th>J3</th>
-                                    </tr>
-                                    <tr>
-                                        <td>W1</td>
-                                        <td>4</td>
-                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W2</td>
-                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
-                                        <td>1</td>
-                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W3</td>
-                                        <td>1</td>
-                                        <td>7</td>
-                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
-                                    </tr>
-                                </table>
-                                <p class="slide-text">ROW-1, ROW-2, COLUMN-3</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 7 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">STEP-4</h2>
-                                <h3 class="slide-title">FIND SMALLEST UNCOVERED ELEMENT</h3>
-                                <table>
-                                    <tr>
-                                        <th></th>
-                                        <th>J1</th>
-                                        <th>J2</th>
-                                        <th>J3</th>
-                                    </tr>
-                                    <tr>
-                                        <td>W1</td>
-                                        <td style="background: rgba(229, 62, 62, 0.3);">4</td>
-                                        <td>0</td>
-                                        <td style="background: rgba(229, 62, 62, 0.3);">5</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W2</td>
-                                        <td>0</td>
-                                        <td style="background: rgba(229, 62, 62, 0.3);">1</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W3</td>
-                                        <td style="background: rgba(229, 62, 62, 0.3);">1</td>
-                                        <td style="background: rgba(229, 62, 62, 0.3);">7</td>
-                                        <td>0</td>
-                                    </tr>
-                                </table>
-                                <p class="slide-text">Uncovered Elements (highlighted in red)</p>
-                                <p class="slide-text">SMALLEST ELEMENT = 1</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 8 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">STEP-5</h2>
-                                <h3 class="slide-title">SUBTRACT SMALLEST ELEMENT FROM ALL UNCOVERED ELEMENT</h3>
-                                <table>
-                                    <tr>
-                                        <th></th>
-                                        <th>J1</th>
-                                        <th>J2</th>
-                                        <th>J3</th>
-                                    </tr>
-                                    <tr>
-                                        <td>W1</td>
-                                        <td>3</td>
-                                        <td>0</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W2</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W3</td>
-                                        <td>0</td>
-                                        <td>6</td>
-                                        <td>0</td>
-                                    </tr>
-                                </table>
-                                <p class="slide-text">SUBTRACT = 1</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 9 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">STEP-6</h2>
-                                <h3 class="slide-title">ADD SMALLEST ELEMENT TO ALL ELEMENTS AT THE INTERSECTION OF LINES</h3>
-                                <table>
-                                    <tr>
-                                        <th></th>
-                                        <th>J1</th>
-                                        <th>J2</th>
-                                        <th>J3</th>
-                                    </tr>
-                                    <tr>
-                                        <td>W1</td>
-                                        <td>4</td>
-                                        <td>0</td>
-                                        <td>6</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W2</td>
-                                        <td>0</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W3</td>
-                                        <td>0</td>
-                                        <td>6</td>
-                                        <td>0</td>
-                                    </tr>
-                                </table>
-                                <p class="slide-text">Intersection of lines | Adding 1</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 10 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">STEP-7</h2>
-                                <h3 class="slide-title">SELECT ZERO FROM EACH ROW THUS THE COLUMN DOESN'T INTERSECT</h3>
-                                <table>
-                                    <tr>
-                                        <th></th>
-                                        <th>J1</th>
-                                        <th>J2</th>
-                                        <th>J3</th>
-                                    </tr>
-                                    <tr>
-                                        <td>W1</td>
-                                        <td>4</td>
-                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
-                                        <td>6</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W2</td>
-                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W3</td>
-                                        <td>0</td>
-                                        <td>6</td>
-                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
-                                    </tr>
-                                </table>
-                                <p class="slide-text">If you select any zero from a row then you are not allowed to select zero for other row from same column</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 11 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">RESULT</h2>
-                                <h3 class="slide-title">FINAL RESULT</h3>
-                                <table>
-                                    <tr>
-                                        <th></th>
-                                        <th>J1</th>
-                                        <th>J2</th>
-                                        <th>J3</th>
-                                    </tr>
-                                    <tr>
-                                        <td>W1</td>
-                                        <td>4</td>
-                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
-                                        <td>6</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W2</td>
-                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>W3</td>
-                                        <td>0</td>
-                                        <td>6</td>
-                                        <td style="background: rgba(56, 161, 105, 0.3);">0</td>
-                                    </tr>
-                                </table>
-                                <ul style="margin: 20px 0; padding-left: 20px;">
-                                    <li class="slide-text">J2 Assigned To W1</li>
-                                    <li class="slide-text">J1 Assigned To W2</li>
-                                    <li class="slide-text">J3 Assigned To W3</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 12 -->
-                        <div class="slide">
-                            <div class="slide-content">
-                                <h2 class="slide-title">CONCLUSION</h2>
-                                <ul style="margin: 20px 0; padding-left: 20px;">
-                                    <li class="slide-text">J2 Assigned To W1</li>
-                                    <li class="slide-text">J1 Assigned To W2</li>
-                                    <li class="slide-text">J3 Assigned To W3</li>
-                                </ul>
-                                <p class="slide-text">Total Cost = 2 + 6 + 1 = 9</p>
-                                <p class="slide-text">This is the minimum cost possible for this assignment problem.</p>
-                                <div class="math-formula">
-                                    \[ \text{Minimum Cost} = 9 \]
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Slide Controls -->
-                    <div class="controls">
-                        <button id="prevBtn">Previous</button>
-                        <button id="nextBtn">Next</button>
-                    </div>
-                    
-                    <!-- Slide Indicators -->
-                    <div class="slide-indicators">
-                        <div class="indicator active" data-slide="0">1</div>
-                        <div class="indicator" data-slide="1">2</div>
-                        <div class="indicator" data-slide="2">3</div>
-                        <div class="indicator" data-slide="3">4</div>
-                        <div class="indicator" data-slide="4">5</div>
-                        <div class="indicator" data-slide="5">6</div>
-                        <div class="indicator" data-slide="6">7</div>
-                        <div class="indicator" data-slide="7">8</div>
-                        <div class="indicator" data-slide="8">9</div>
-                        <div class="indicator" data-slide="9">10</div>
-                        <div class="indicator" data-slide="10">11</div>
-                        <div class="indicator" data-slide="11">12</div>
-                    </div>
-                    
-                    <div class="slide-number">
-                        Slide <span id="currentSlide">1</span> of <span id="totalSlides">12</span>
-                    </div>
+<section id="algorithm-slideshow" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; padding: 5rem 10%;">
+    <div class="container">
+        <header>
+            <h1>Hungarian Algorithm</h1>
+            <p class="subtitle">Step-by-Step Explanation</p>
+        </header>
+        
+        <div class="slideshow-container">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <div class="slide-content">
+                    <h2 class="slide-title">Hungarian Algorithm</h2>
+                    <h3 class="slide-title">FULL EXPLANATION</h3>
+                    <p class="slide-text">Solving Assignment Problems Efficiently</p>
+                    <p class="slide-text">Minimize total cost while assigning each worker to exactly one job</p>
                 </div>
-            </section>
-
-
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">LET'S LEARN IT THROUGH EXAMPLE</h2>
+                    <p class="slide-text">Let's Take Example of Workers and Jobs.</p>
+                    <p class="slide-text">Which Jobs are Allocated to Which Workers...</p>
+                    <p class="slide-text">We'll find the optimal assignment with minimum total cost</p>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">LET'S START</h2>
+                    <table>
+                        <tr>
+                            <th>Ex.</th>
+                            <th>J1</th>
+                            <th>J2</th>
+                            <th>J3</th>
+                        </tr>
+                        <tr>
+                            <td>W1</td>
+                            <td>9</td>
+                            <td>2</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>W2</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>W3</td>
+                            <td>5</td>
+                            <td>8</td>
+                            <td>1</td>
+                        </tr>
+                    </table>
+                    <p class="slide-text">This given values are the cost (or distance, time, effort, etc.)</p>
+                    <p class="slide-text">Our goal: Assign each worker to one job with minimum total cost</p>
+                </div>
+            </div>
+            
+            <!-- Slide 4 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">STEP-1</h2>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                        <div>
+                            <h3 class="slide-title">Original Matrix</h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th>J1</th>
+                                    <th>J2</th>
+                                    <th>J3</th>
+                                </tr>
+                                <tr>
+                                    <td>W1</td>
+                                    <td>9</td>
+                                    <td>2</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>W2</td>
+                                    <td>6</td>
+                                    <td>4</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>W3</td>
+                                    <td>5</td>
+                                    <td>8</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <h3 class="slide-title">After Row Reduction</h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th>J1</th>
+                                    <th>J2</th>
+                                    <th>J3</th>
+                                </tr>
+                                <tr>
+                                    <td>W1</td>
+                                    <td>7</td>
+                                    <td>0</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>W2</td>
+                                    <td>3</td>
+                                    <td>1</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>W3</td>
+                                    <td>4</td>
+                                    <td>7</td>
+                                    <td>0</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="slide-text">SUBTRACT WHOLE ROW WITH MINIMUM VALUE IN THE ROW</p>
+                </div>
+            </div>
+            
+            <!-- Slide 5 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">STEP-2</h2>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                        <div>
+                            <h3 class="slide-title">After Row Reduction</h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th>J1</th>
+                                    <th>J2</th>
+                                    <th>J3</th>
+                                </tr>
+                                <tr>
+                                    <td>W1</td>
+                                    <td>7</td>
+                                    <td>0</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>W2</td>
+                                    <td>3</td>
+                                    <td>1</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>W3</td>
+                                    <td>4</td>
+                                    <td>7</td>
+                                    <td>0</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <h3 class="slide-title">After Column Reduction</h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th>J1</th>
+                                    <th>J2</th>
+                                    <th>J3</th>
+                                </tr>
+                                <tr>
+                                    <td>W1</td>
+                                    <td>4</td>
+                                    <td>0</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>W2</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>W3</td>
+                                    <td>1</td>
+                                    <td>7</td>
+                                    <td>0</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="slide-text">DO THE SAME WITH COLUMN</p>
+                </div>
+            </div>
+            
+            <!-- Slide 6 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">STEP-3</h2>
+                    <h3 class="slide-title">FIND MINIMUM LINES THAT COVER ALL ZEROS</h3>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>J1</th>
+                            <th>J2</th>
+                            <th>J3</th>
+                        </tr>
+                        <tr>
+                            <td>W1</td>
+                            <td>4</td>
+                            <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>W2</td>
+                            <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                            <td>1</td>
+                            <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                        </tr>
+                        <tr>
+                            <td>W3</td>
+                            <td>1</td>
+                            <td>7</td>
+                            <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                        </tr>
+                    </table>
+                    <p class="slide-text">ROW-1, ROW-2, COLUMN-3</p>
+                </div>
+            </div>
+            
+            <!-- Slide 7 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">STEP-4</h2>
+                    <h3 class="slide-title">FIND SMALLEST UNCOVERED ELEMENT</h3>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>J1</th>
+                            <th>J2</th>
+                            <th>J3</th>
+                        </tr>
+                        <tr>
+                            <td>W1</td>
+                            <td style="background: rgba(229, 62, 62, 0.3);">4</td>
+                            <td>0</td>
+                            <td style="background: rgba(229, 62, 62, 0.3);">5</td>
+                        </tr>
+                        <tr>
+                            <td>W2</td>
+                            <td>0</td>
+                            <td style="background: rgba(229, 62, 62, 0.3);">1</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>W3</td>
+                            <td style="background: rgba(229, 62, 62, 0.3);">1</td>
+                            <td style="background: rgba(229, 62, 62, 0.3);">7</td>
+                            <td>0</td>
+                        </tr>
+                    </table>
+                    <p class="slide-text">Uncovered Elements (highlighted in red)</p>
+                    <p class="slide-text">SMALLEST ELEMENT = 1</p>
+                </div>
+            </div>
+            
+            <!-- Slide 8 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">STEP-5</h2>
+                    <h3 class="slide-title">SUBTRACT SMALLEST ELEMENT FROM ALL UNCOVERED ELEMENT</h3>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>J1</th>
+                            <th>J2</th>
+                            <th>J3</th>
+                        </tr>
+                        <tr>
+                            <td>W1</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>W2</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>W3</td>
+                            <td>0</td>
+                            <td>6</td>
+                            <td>0</td>
+                        </tr>
+                    </table>
+                    <p class="slide-text">SUBTRACT = 1</p>
+                </div>
+            </div>
+            
+            <!-- Slide 9 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">STEP-6</h2>
+                    <h3 class="slide-title">ADD SMALLEST ELEMENT TO ALL ELEMENTS AT THE INTERSECTION OF LINES</h3>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>J1</th>
+                            <th>J2</th>
+                            <th>J3</th>
+                        </tr>
+                        <tr>
+                            <td>W1</td>
+                            <td>4</td>
+                            <td>0</td>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                            <td>W2</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>W3</td>
+                            <td>0</td>
+                            <td>6</td>
+                            <td>0</td>
+                        </tr>
+                    </table>
+                    <p class="slide-text">Intersection of lines | Adding 1</p>
+                </div>
+            </div>
+            
+            <!-- Slide 10 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">STEP-7</h2>
+                    <h3 class="slide-title">SELECT ZERO FROM EACH ROW THUS THE COLUMN DOESN'T INTERSECT</h3>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>J1</th>
+                            <th>J2</th>
+                            <th>J3</th>
+                        </tr>
+                        <tr>
+                            <td>W1</td>
+                            <td>4</td>
+                            <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                            <td>W2</td>
+                            <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                            <td>1</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>W3</td>
+                            <td>0</td>
+                            <td>6</td>
+                            <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                        </tr>
+                    </table>
+                    <p class="slide-text">If you select any zero from a row then you are not allowed to select zero for other row from same column</p>
+                </div>
+            </div>
+            
+            <!-- Slide 11 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">RESULT</h2>
+                    <h3 class="slide-title">FINAL RESULT</h3>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>J1</th>
+                            <th>J2</th>
+                            <th>J3</th>
+                        </tr>
+                        <tr>
+                            <td>W1</td>
+                            <td>4</td>
+                            <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                            <td>W2</td>
+                            <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                            <td>1</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>W3</td>
+                            <td>0</td>
+                            <td>6</td>
+                            <td style="background: rgba(56, 161, 105, 0.3);">0</td>
+                        </tr>
+                    </table>
+                    <ul style="margin: 20px 0; padding-left: 20px;">
+                        <li class="slide-text">J2 Assigned To W1</li>
+                        <li class="slide-text">J1 Assigned To W2</li>
+                        <li class="slide-text">J3 Assigned To W3</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 12 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <h2 class="slide-title">CONCLUSION</h2>
+                    <ul style="margin: 20px 0; padding-left: 20px;">
+                        <li class="slide-text">J2 Assigned To W1</li>
+                        <li class="slide-text">J1 Assigned To W2</li>
+                        <li class="slide-text">J3 Assigned To W3</li>
+                    </ul>
+                    <p class="slide-text">Total Cost = 2 + 6 + 1 = 9</p>
+                    <p class="slide-text">This is the minimum cost possible for this assignment problem.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide Controls -->
+        <div class="controls">
+            <button id="prevBtn">Previous</button>
+            <button id="nextBtn">Next</button>
+        </div>
+        
+        <!-- Slide Indicators -->
+        <div class="slide-indicators">
+            <div class="indicator active" data-slide="0">1</div>
+            <div class="indicator" data-slide="1">2</div>
+            <div class="indicator" data-slide="2">3</div>
+            <div class="indicator" data-slide="3">4</div>
+            <div class="indicator" data-slide="4">5</div>
+            <div class="indicator" data-slide="5">6</div>
+            <div class="indicator" data-slide="6">7</div>
+            <div class="indicator" data-slide="7">8</div>
+            <div class="indicator" data-slide="8">9</div>
+            <div class="indicator" data-slide="9">10</div>
+            <div class="indicator" data-slide="10">11</div>
+            <div class="indicator" data-slide="11">12</div>
+        </div>
+        
+        <div class="slide-number">
+            Slide <span id="currentSlide">1</span> of <span id="totalSlides">12</span>
+        </div>
+    </div>
+</section>
 <!-- About Project Section -->
 <section id="about">
     <div class="container">
@@ -989,7 +964,7 @@
                             <h4>Varshil Patel</h4>
                         </div>
                         <div class="card-body">
-                            <p class="enrollment-id">24CSO080-CSE</p>
+                            <p class="enrollment-id">24CS080-CSE</p>
                             <p class="department">Computer Science & Engineering</p>
                         </div>
                     </div>
